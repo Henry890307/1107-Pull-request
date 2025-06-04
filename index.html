@@ -1,20 +1,97 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-TW">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+  <meta charset="UTF-8">
+  <meta name="description" content="太天鋁門窗客製化官網，提供各式窗戶設計與諮詢服務。">
+  <title>太天鋁門窗客製化官網</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f0f8ff;
+      margin: 0;
+    }
+
+    .hero {
+      padding: 30px;
+      background: #cceeff;
+      text-align: center;
+    }
+
+    .gallery {
+      text-align: center;
+    }
+
+    .window-card {
+      transition: transform 0.5s;
+      width: 300px;
+      margin: 20px;
+      display: inline-block;
+    }
+
+    .window-card h5 {
+      margin-top: 10px;
+    }
+
+    .window-card:hover {
+      transform: scale(1.05);
+    }
+
+    .list-view .window-card {
+      display: block;
+      width: 80%;
+      margin: 10px auto;
+      text-align: left;
+    }
+
+    nav button {
+      padding: 10px 20px;
+      font-size: 1rem;
+      margin: 5px;
+      cursor: pointer;
+      border: none;
+      background-color: #007acc;
+      color: white;
+      border-radius: 5px;
+    }
+  </style>
 </head>
 <body>
-	<h1>換我 試試看</h1>
-    <h1>測試，我的帥是一直存在</h1>
-    這是第二次..
-    新增【這是第二次】
-    <p>harry change^^</p>
-    <p>test</p>
-    <p>test by shawn123456</p>
-    <p>test by Albert</p>
-    <p>測試 PR</p>
+  <header class="hero">
+    <h1>太天鋁門窗｜窗戶客製化官網</h1>
+    <nav>
+      <button onclick="toggleView('grid')">網格模式</button>
+      <button onclick="toggleView('list')">列表模式</button>
+    </nav>
+  </header>
+
+  <section class="container">
+    <div id="gallery" class="gallery grid-view">
+      <!-- 示例圖片 -->
+      <div class="window-card">
+        <img src="images/IMAGE_URL_1.jpg" alt="產品名稱1" width="300" height="200">
+        <h5>產品名稱1</h5>
+      </div>
+      <div class="window-card">
+        <img src="images/IMAGE_URL_2.jpg" alt="產品名稱2" width="300" height="200">
+        <h5>產品名稱2</h5>
+      </div>
+      <!-- 此處可放置更多產品 -->
+    </div>
+  </section>
+
+  <footer style="text-align:center; padding:20px; background-color:#e6f7ff; margin-top:50px;">
+    <p>© 2025 太天鋁門窗 | 設計風格：簡約 + 科技感 | 主色調：天空藍</p>
+  </footer>
+
+  <script>
+    function toggleView(view) {
+      const gallery = document.getElementById('gallery');
+      gallery.className = view === 'grid' ? 'gallery grid-view' : 'gallery list-view';
+    }
+
+    document.querySelectorAll('.window-card').forEach(card => {
+      card.addEventListener('click', () => alert('產品詳情或聯絡資訊'));
+    });
+  </script>
 </body>
 </html>
