@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Auto Facade</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <h1>Auto Facade <span class="badge">P1</span></h1>
+    <p class="sub">參數化垂直遮陽鰭片立面</p>
+  </header>
+
+  <main>
+    <section class="group">
+      <h2>單位</h2>
+      <div class="row units">
+        <label><input type="radio" name="units" value="inch" checked> inch</label>
+        <label><input type="radio" name="units" value="cm"> cm</label>
+      </div>
+    </section>
+
+    <section class="group">
+      <h2>立面</h2>
+      <div class="row">
+        <label>立面寬度 <span class="u">in</span></label>
+        <input type="number" id="elevation_width" step="0.1" value="144">
+      </div>
+      <div class="row">
+        <label>開間數</label>
+        <input type="number" id="bay_count" step="1" value="3">
+      </div>
+      <div class="row">
+        <label>樓層高 <span class="u">in</span></label>
+        <input type="number" id="floor_height" step="0.1" value="144">
+      </div>
+      <div class="row">
+        <label>樓層數</label>
+        <input type="number" id="floor_count" step="1" value="3">
+      </div>
+    </section>
+
+    <section class="group">
+      <h2>鰭片</h2>
+      <div class="row layout">
+        <label><input type="radio" name="fin_layout" value="by_count" checked> 依數量</label>
+        <label><input type="radio" name="fin_layout" value="by_spacing"> 依間距</label>
+      </div>
+      <div class="row">
+        <label>數量</label>
+        <input type="number" id="fin_count" step="1" value="13">
+      </div>
+      <div class="row">
+        <label>間距 <span class="u">in</span></label>
+        <input type="number" id="fin_spacing" step="0.1" value="12">
+      </div>
+      <div class="row">
+        <label>寬度 <span class="u">in</span></label>
+        <input type="number" id="fin_width" step="0.1" value="2.5">
+      </div>
+      <div class="row">
+        <label>深度 <span class="u">in</span></label>
+        <input type="number" id="fin_depth" step="0.1" value="10">
+      </div>
+      <div class="row">
+        <label>顏色</label>
+        <input type="color" id="fin_color" value="#3a3f44">
+      </div>
+    </section>
+
+    <section class="group">
+      <h2>樓板</h2>
+      <div class="row">
+        <label>板厚 <span class="u">in</span></label>
+        <input type="number" id="slab_thickness" step="0.1" value="8">
+      </div>
+      <div class="row">
+        <label>出挑 <span class="u">in</span></label>
+        <input type="number" id="slab_overhang" step="0.1" value="24">
+      </div>
+    </section>
+
+    <div id="hint" class="hint"></div>
+    <button id="generate">生成 / 更新模型</button>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>
