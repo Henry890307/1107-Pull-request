@@ -1,11 +1,13 @@
 # Auto Facade — SketchUp 建築自動建模外掛（P1）
 
-參數驅動的建築立面自動建模工具。**P1（MVP）** 範圍：垂直遮陽鰭片（W-02）+ 樓板（RB-01）+ 帷幕基準面，
+參數驅動的建築立面自動建模工具。目前範圍 **P1 + P2**：
+垂直遮陽鰭片（W-02）+ 樓板（RB-01）+ 帷幕牆系統（CW-01 豎框/橫框 + GL-01 玻璃單元），
 支援 **inch / cm 單位切換** 與參數即時驗證。
 
 對應設計文件：
 - `../docs/01-需求與架構分析.md`（全局架構與 P0–P6 路線圖）
-- `../docs/02-P1鰭片立面細部設計.md`（本階段可實作細節）
+- `../docs/02-P1鰭片立面細部設計.md`（鰭片立面）
+- `../docs/03-P2帷幕牆系統設計.md`（帷幕牆系統）
 
 ## 目錄結構
 
@@ -19,7 +21,8 @@ sketchup_auto_facade/
 │  │  └─ parameters.rb         # 參數 normalize / validate
 │  ├─ builder/
 │  │  ├─ fin_layout.rb         # 鰭片佈局演算法（by_count / by_spacing）
-│  │  ├─ facade_builder.rb     # 建模主流程（鰭片 / 樓板 / 帷幕基準面）
+│  │  ├─ curtain_wall.rb       # 帷幕牆（豎框 / 橫框 / 玻璃單元）
+│  │  ├─ facade_builder.rb     # 建模主流程（鰭片 / 樓板 / 帷幕牆）
 │  │  └─ materials.rb          # 材質（深鐵灰 / 玻璃藍）
 │  └─ ui/
 │     ├─ dialog.rb             # HtmlDialog + Ruby↔JS 通訊

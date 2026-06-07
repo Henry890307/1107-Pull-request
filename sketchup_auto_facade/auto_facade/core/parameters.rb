@@ -16,7 +16,11 @@ module AutoFacade
       fin_width:       { default: 2.5,   min: 0.25,  max: 24.0,  label: '鰭片寬度' },
       fin_depth:       { default: 10.0,  min: 1.0,   max: 48.0,  label: '鰭片深度' },
       slab_thickness:  { default: 8.0,   min: 4.0,   max: 36.0,  label: '樓板厚'   },
-      slab_overhang:   { default: 24.0,  min: 0.0,   max: 60.0,  label: '樓板出挑' }
+      slab_overhang:   { default: 24.0,  min: 0.0,   max: 60.0,  label: '樓板出挑' },
+      # 帷幕牆 (P2)
+      panel_width:     { default: 36.0,  min: 12.0,  max: 120.0, label: '玻璃單元寬' },
+      mullion_width:   { default: 2.0,   min: 0.5,   max: 12.0,  label: '框料寬'     },
+      mullion_depth:   { default: 5.0,   min: 1.0,   max: 24.0,  label: '框料深'     }
     }.freeze
 
     # count 類欄位：整數，不做單位轉換。
@@ -48,8 +52,10 @@ module AutoFacade
       end
 
       layout = raw[:fin_layout].to_s
-      result[:fin_layout] = FIN_LAYOUTS.include?(layout) ? layout : 'by_count'
-      result[:fin_color]  = normalize_hex(raw[:fin_color]) || '#3a3f44'
+      result[:fin_layout]    = FIN_LAYOUTS.include?(layout) ? layout : 'by_count'
+      result[:fin_color]     = normalize_hex(raw[:fin_color]) || '#3a3f44'
+      result[:glass_color]   = normalize_hex(raw[:glass_color]) || '#bcd8e6'
+      result[:glass_opacity] = clamp(raw.key?(:glass_opacity) ? raw[:glass_opacity].to_f : 0.35, 0.05, 1.0)
       result
     end
 
@@ -90,10 +96,19 @@ module AutoFacade
         end
       end
 
+      # 帷幕牆：框料寬需小於玻璃單元寬，否則無玻璃可容
+      if p[:mullion_width].to_f >= p[:panel_width].to_f
+        errs << '框料寬需小於玻璃單元寬'
+      end
+
       errs
     end
 
     # ---- helpers ----
+
+    def clamp(value, lo, hi)
+      [[value, lo].max, hi].min
+    end
 
     def safe_layout(p)
       require File.join(File.dirname(__FILE__), '..', 'builder', 'fin_layout')

@@ -9,6 +9,7 @@ base = File.expand_path(File.join(File.dirname(__FILE__), '..', 'auto_facade'))
 require File.join(base, 'core', 'units')
 require File.join(base, 'core', 'parameters')
 require File.join(base, 'builder', 'fin_layout')
+require File.join(base, 'builder', 'curtain_wall')
 
 class TestUnits < Minitest::Test
   include AutoFacade
@@ -89,5 +90,36 @@ class TestValidation < Minitest::Test
     p = Parameters.normalize(fin_layout: 'by_count', fin_count: 1)
     errs = Parameters.validate(p)
     refute_empty errs
+  end
+
+  # 帷幕牆：框料寬 >= 玻璃單元寬 應被擋下
+  def test_mullion_wider_than_panel
+    p = Parameters.normalize(panel_width: 12, mullion_width: 12)
+    errs = Parameters.validate(p)
+    assert(errs.any? { |e| e.include?('框料寬') })
+  end
+end
+
+class TestCurtainWallLayout < Minitest::Test
+  include AutoFacade
+
+  # W=144、單元寬 36 → 4 開間、實際單元寬 36"、5 條豎框線
+  def test_panel_grid
+    p = Parameters.normalize(elevation_width: 144, panel_width: 36,
+                             floor_height: 144, floor_count: 3)
+    grid = CurtainWall.layout(p, p[:floor_height] * p[:floor_count])
+    assert_equal 4, grid[:cols]
+    assert_in_delta 36.0, grid[:panel_width], 1e-9
+    assert_equal 5, grid[:x_lines].length
+    assert_equal 4, grid[:z_lines].length  # floor_count + 1
+    assert_in_delta 144.0, grid[:x_lines].last, 1e-9
+  end
+
+  # 非整除時均分修正：W=144、單元寬 50 → round(2.88)=3 開間、實際 48"
+  def test_panel_grid_rounding
+    p = Parameters.normalize(elevation_width: 144, panel_width: 50)
+    grid = CurtainWall.layout(p, 432)
+    assert_equal 3, grid[:cols]
+    assert_in_delta 48.0, grid[:panel_width], 1e-9
   end
 end

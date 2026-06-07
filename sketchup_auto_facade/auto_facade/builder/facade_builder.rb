@@ -4,6 +4,7 @@ base = File.dirname(__FILE__)
 require File.join(base, '..', 'core', 'parameters')
 require File.join(base, '..', 'core', 'units')
 require File.join(base, 'fin_layout')
+require File.join(base, 'curtain_wall')
 require File.join(base, 'materials')
 
 module AutoFacade
@@ -40,7 +41,7 @@ module AutoFacade
 
         build_floors(root, slab_def, p)
         build_fins(root, fin_def, layout, p)
-        build_curtain_base(root, model, p, total_h)
+        cw = CurtainWall.build(root, model, p, total_h)
 
         Materials.apply_fin_color(model, fin_def, p[:fin_color])
         tag_root(root, p, layout)
@@ -55,7 +56,9 @@ module AutoFacade
         ok: true,
         fin_count: layout[:count],
         fin_spacing_in: layout[:spacing].round(3),
-        floor_count: p[:floor_count]
+        floor_count: p[:floor_count],
+        panels: cw[:panels],
+        panel_width_in: cw[:panel_width]
       }
     end
 
@@ -143,19 +146,6 @@ module AutoFacade
         fins.entities.add_instance(fin_def, tr)
       end
       fins
-    end
-
-    # 帷幕基準薄面（Y=0），P2 取代為真正的玻璃帷幕。
-    def build_curtain_base(root, model, p, total_h)
-      base = add_named_group(root, 'CurtainBase')
-      w = Units.length(p[:elevation_width])
-      h = Units.length(total_h)
-      face = base.entities.add_face(
-        [0, 0, 0], [w, 0, 0], [w, 0, h], [0, 0, h]
-      )
-      face.material = Materials.curtain_glass(model)
-      face.back_material = Materials.curtain_glass(model)
-      base
     end
 
     def add_named_group(parent, name)

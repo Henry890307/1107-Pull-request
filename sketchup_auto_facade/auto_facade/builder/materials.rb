@@ -16,11 +16,11 @@ module AutoFacade
       fin_def.entities.grep(Sketchup::Face).each { |f| f.material = mat }
     end
 
-    # 帷幕基準面：淡藍半透明，暫代玻璃（P2 取代）。
-    def curtain_glass(model)
+    # 玻璃單元材質：可指定顏色(hex)與透明度(0..1)。
+    def curtain_glass(model, hex = '#bcd8e6', opacity = 0.35)
       mat = ensure_material(model, CURTAIN_MATERIAL_NAME)
-      mat.color = Sketchup::Color.new(188, 216, 230)
-      mat.alpha = 0.35
+      mat.color = hex_to_color(hex)
+      mat.alpha = opacity.to_f
       mat
     end
 

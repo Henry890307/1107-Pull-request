@@ -7,7 +7,8 @@
   var CM_PER_INCH = 2.54;
   var LENGTH_FIELDS = [
     "elevation_width", "floor_height", "fin_spacing",
-    "fin_width", "fin_depth", "slab_thickness", "slab_overhang"
+    "fin_width", "fin_depth", "slab_thickness", "slab_overhang",
+    "panel_width", "mullion_width", "mullion_depth"
   ];
   var COUNT_FIELDS = ["bay_count", "floor_count", "fin_count"];
 
@@ -28,6 +29,8 @@
     COUNT_FIELDS.forEach(function (k) { p[k] = parseInt($(k).value, 10); });
     p.fin_layout = radio("fin_layout");
     p.fin_color = $("fin_color").value;
+    p.glass_color = $("glass_color").value;
+    p.glass_opacity = parseFloat($("glass_opacity").value);
     return p;
   }
 
@@ -118,8 +121,10 @@
         setHint("生成失敗：" + (res.errors || []).join("；"), "error");
         return;
       }
-      setHint("已生成 " + res.fin_count + " 支 · 間距 " +
-        res.fin_spacing_in + "\" · " + res.floor_count + " 層", "ok");
+      var msg = "已生成 " + res.fin_count + " 支 · 間距 " +
+        res.fin_spacing_in + "\" · " + res.floor_count + " 層";
+      if (res.panels != null) msg += " · 玻璃 " + res.panels + " 開";
+      setHint(msg, "ok");
     },
     onDefaults: function (defaults) {
       // 預留：以 Ruby 預設回填面板（目前 HTML 已內建相同預設）。
