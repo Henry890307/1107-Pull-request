@@ -1,20 +1,328 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-Hant">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+    <title>建築 AI 知識基礎設施 · 一句話到一棟樓</title>
+    <style>
+        :root {
+            --bg: #f4f1ea;
+            --ink: #1c1a17;
+            --muted: #6b6258;
+            --accent: #c0392b;
+            --line: #d8d2c6;
+            --card: #fbf9f4;
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            background: var(--bg);
+            color: var(--ink);
+            font-family: "Noto Sans TC", "PingFang TC", "Microsoft JhengHei", sans-serif;
+            line-height: 1.75;
+            -webkit-font-smoothing: antialiased;
+        }
+        .wrap { max-width: 920px; margin: 0 auto; padding: 0 24px; }
+
+        /* Hero */
+        header {
+            border-bottom: 1px solid var(--line);
+            padding: 80px 0 56px;
+        }
+        .kicker {
+            color: var(--accent);
+            font-weight: 700;
+            letter-spacing: .18em;
+            font-size: 13px;
+            text-transform: uppercase;
+        }
+        h1 {
+            font-size: clamp(40px, 8vw, 76px);
+            font-weight: 800;
+            line-height: 1.05;
+            margin: 18px 0 8px;
+            letter-spacing: -.01em;
+        }
+        h1 .red { color: var(--accent); }
+        .subtitle {
+            font-style: italic;
+            color: var(--muted);
+            font-size: clamp(18px, 3vw, 24px);
+            margin-bottom: 24px;
+        }
+        .lead {
+            font-size: 18px;
+            max-width: 640px;
+            color: var(--ink);
+        }
+
+        /* Sections */
+        section { padding: 56px 0; border-bottom: 1px solid var(--line); }
+        .eyebrow {
+            color: var(--accent);
+            font-weight: 700;
+            letter-spacing: .14em;
+            font-size: 12px;
+            text-transform: uppercase;
+            margin-bottom: 14px;
+        }
+        h2 { font-size: clamp(26px, 5vw, 36px); font-weight: 800; margin-bottom: 24px; }
+        h3 { font-size: 20px; font-weight: 700; margin: 28px 0 8px; }
+        p { margin-bottom: 14px; }
+        .muted { color: var(--muted); }
+
+        /* Category grid */
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+            gap: 16px;
+        }
+        .cat {
+            background: var(--card);
+            border: 1px solid var(--line);
+            border-radius: 10px;
+            padding: 18px 20px;
+        }
+        .cat .num {
+            color: var(--accent);
+            font-weight: 800;
+            font-size: 13px;
+            font-variant-numeric: tabular-nums;
+        }
+        .cat .name { font-weight: 700; font-size: 17px; margin: 4px 0; }
+        .cat .desc { color: var(--muted); font-size: 14px; }
+
+        /* Code block */
+        pre {
+            background: #211f1b;
+            color: #e8e3d8;
+            padding: 22px 24px;
+            border-radius: 10px;
+            overflow-x: auto;
+            font-family: "SF Mono", "JetBrains Mono", Consolas, monospace;
+            font-size: 13.5px;
+            line-height: 1.7;
+            margin: 18px 0;
+        }
+        pre .c { color: #b58a5a; }
+
+        /* Table */
+        table { width: 100%; border-collapse: collapse; margin: 18px 0; }
+        th, td { text-align: left; padding: 12px 14px; border-bottom: 1px solid var(--line); font-size: 15px; }
+        th { color: var(--accent); font-size: 12px; text-transform: uppercase; letter-spacing: .08em; }
+        td strong { font-weight: 700; }
+
+        /* Tools */
+        .tool {
+            background: var(--card);
+            border: 1px solid var(--line);
+            border-left: 3px solid var(--accent);
+            border-radius: 8px;
+            padding: 22px 24px;
+            margin-bottom: 18px;
+        }
+        .tool h3 { margin-top: 0; }
+        .tool ul { margin: 10px 0 10px 20px; }
+        .tool li { margin-bottom: 4px; font-size: 15px; }
+        .tool .say {
+            background: #efe9dd;
+            border-radius: 6px;
+            padding: 10px 14px;
+            font-size: 14px;
+            color: var(--muted);
+            margin-top: 10px;
+        }
+        .note {
+            background: #fbeee9;
+            border: 1px solid #e7c4bb;
+            border-radius: 6px;
+            padding: 10px 14px;
+            font-size: 14px;
+            margin-top: 10px;
+        }
+
+        /* License + CTA */
+        .pills { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 12px; }
+        .pill {
+            background: var(--card);
+            border: 1px solid var(--line);
+            border-radius: 999px;
+            padding: 8px 16px;
+            font-size: 14px;
+        }
+        .cta { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 8px; }
+        .cta span {
+            background: var(--card);
+            border: 1px solid var(--line);
+            border-radius: 8px;
+            padding: 10px 16px;
+            font-size: 15px;
+        }
+
+        footer {
+            padding: 40px 0 64px;
+            color: var(--muted);
+            font-size: 13px;
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+        footer .red { color: var(--accent); }
+    </style>
 </head>
 <body>
-	<h1>換我 試試看</h1>
-    <h1>測試，我的帥是一直存在</h1>
-    這是第二次..
-    新增【這是第二次】
-    <p>harry change^^</p>
-    <p>test</p>
-    <p>test by shawn123456</p>
-    <p>test by Albert</p>
-    <p>測試 PR</p>
+    <header>
+        <div class="wrap">
+            <div class="kicker">建築 AI 元年 · 現場實證 / A Live Keynote</div>
+            <h1>一句話<br><span class="red">到一棟樓</span></h1>
+            <div class="subtitle">From One Sentence to a Building — 建築師的 AI 超能力</div>
+            <p class="lead">為 AI 時代設計的建築產業知識基礎設施。不只是知識整理，而是讓人類能瀏覽學習、讓 AI 能直接讀取並執行的<strong>雙語雙層知識庫</strong>。</p>
+        </div>
+    </header>
+
+    <section>
+        <div class="wrap">
+            <div class="eyebrow">§ The Knowledge Base · 知識涵蓋</div>
+            <h2>這個知識庫涵蓋什麼？</h2>
+            <p class="muted">整個知識庫分為 9 大核心分類：</p>
+            <div class="grid">
+                <div class="cat"><div class="num">01</div><div class="name">建築設計與規劃</div><div class="desc">概念設計、空間規劃、建築類型學</div></div>
+                <div class="cat"><div class="num">02</div><div class="name">專業複委託</div><div class="desc">材料選材、結構系統、機電系統</div></div>
+                <div class="cat"><div class="num">03</div><div class="name">建築性能</div><div class="desc">光環境、音環境、永續建築、計算工具</div></div>
+                <div class="cat"><div class="num">04</div><div class="name">建築法規</div><div class="desc">消防安全、無障礙設計、容積率計算、施工文件</div></div>
+                <div class="cat"><div class="num">05</div><div class="name">專案管理</div><div class="desc">時程、預算、風險、品質、契約管理</div></div>
+                <div class="cat"><div class="num">06</div><div class="name">經營管理</div><div class="desc">酬金計算、事務所營運、證照進修</div></div>
+                <div class="cat"><div class="num">07</div><div class="name">建築施工與材料</div><div class="desc">施工方法、材料選擇、品質管制</div></div>
+                <div class="cat"><div class="num">08</div><div class="name">建築執照</div><div class="desc">建造、雜項、使用、拆除執照</div></div>
+                <div class="cat"><div class="num">09</div><div class="name">公共工程</div><div class="desc">公開招標、公開閱覽流程</div></div>
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <div class="wrap">
+            <div class="eyebrow">§ The Architecture · 雙語雙層</div>
+            <h2>為什麼這個知識庫很特別？</h2>
+            <p><strong>雙語雙層結構</strong>是這個專案最大的特色。每個知識模組採用「上層中文（人類入口）+ 下層英文（AI 技能）」的架構：</p>
+<pre><span class="c">公開招標/                    ← 人類直覺中文分類</span>
+├── domain.md                <span class="c">← 人類打開第一眼看到的中文說明</span>
+└── public-bidding/          <span class="c">← AI 自動識別的英文技能資料夾</span>
+    ├── SKILL.md             <span class="c">← AI 執行指令</span>
+    ├── references/          <span class="c">← 參考法規</span>
+    └── scripts/             <span class="c">← 執行腳本</span></pre>
+            <p>這意味著什麼？意味著你不但可以自己瀏覽學習，還能讓 AI（比如 Claude）直接讀取並執行這些知識。這不是普通的知識整理，而是真正為 AI 時代設計的知識基礎設施。</p>
+        </div>
+    </section>
+
+    <section>
+        <div class="wrap">
+            <div class="eyebrow">§ Skill Tiers · 技能分級</div>
+            <h2>技能分級制度</h2>
+            <p class="muted">我們設計了 A / B / C 三級分類：</p>
+            <table>
+                <thead><tr><th>分類</th><th>說明</th><th>適用對象</th></tr></thead>
+                <tbody>
+                    <tr><td><strong>A 類通用技能</strong></td><td>國際通用標準，無需台灣適配</td><td>AI + 人類直接使用</td></tr>
+                    <tr><td><strong>B 類適配技能</strong></td><td>國際規範 → 台灣適配</td><td>國際 ↔ 台灣雙向支援</td></tr>
+                    <tr><td><strong>C 類台灣法規技能</strong></td><td>完全台灣法規，MCP 工具對接</td><td>台灣法規本位</td></tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+    <section>
+        <div class="wrap">
+            <div class="eyebrow">§ License · 開放貢獻</div>
+            <h2>開放貢獻</h2>
+            <p>這個專案採用<strong>分層授權</strong>，歡迎任何人貢獻知識。只要你願意分享經驗，就歡迎加入。</p>
+            <div class="pills">
+                <span class="pill">📄 文字內容 · CC BY-SA 4.0</span>
+                <span class="pill">⚙️ 腳本程式碼 · Apache 2.0</span>
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <div class="wrap">
+            <div class="eyebrow">§ Open Tools · 相關開源工具</div>
+            <h2>相關開源工具</h2>
+            <p class="muted">我們很常「幫客戶做工具」，但真正想做的是——讓產業共好。</p>
+
+            <div class="tool">
+                <h3>🗺️ OSM_downloader_html — 從地圖下載 3D 建築模型</h3>
+                <p>純網頁端的輕量化工具，幫你取得基地周邊建築資料。</p>
+                <ul>
+                    <li>在 OpenStreetMap 地圖上畫框選取區域</li>
+                    <li>自動下載區域內所有建築 3D 模型（OBJ 格式）</li>
+                    <li>依建築類型自動上色（住宅淺藍、商業淺紅、辦公粉紅⋯⋯）</li>
+                    <li>支援 Rhino 匯入，以選取中心為原點，不破面</li>
+                </ul>
+                <p class="muted">技術：Three.js + Leaflet + Overpass API，全瀏覽器端運算，無需後端。</p>
+            </div>
+
+            <div class="tool">
+                <h3>📝 Trilium_MCP — 讓 AI 直接操作你的筆記</h3>
+                <p>讓 AI（Claude、Gemini 等）直接跟你的 Trilium 筆記庫互動。</p>
+                <ul>
+                    <li>搜尋、讀取筆記內容</li>
+                    <li>建立、修改、刪除筆記</li>
+                    <li>移動筆記、整理結構、管理標籤與屬性</li>
+                </ul>
+                <div class="note">⚠️ 因為有寫入權限，使用前請務必備份筆記庫。</div>
+            </div>
+
+            <div class="tool">
+                <h3>📐 HJPLUS_Taiwan_building_code_tracker_MCP — 建築法規即時查詢</h3>
+                <p>整合全國法規資料庫（建築技術規則條文）與內政部國土管理署（解釋函令）。</p>
+                <ul>
+                    <li>採用 Playwright Headless Browser，繞過政府網站 WAF 與動態渲染</li>
+                    <li>確保抓到最新資料</li>
+                </ul>
+                <div class="say">「搜尋建築技術規則中關於『活載重』的規定。」「幫我查一下『採光』相關的解釋令。」</div>
+            </div>
+
+            <div class="tool">
+                <h3>📥 HJPLUS_PCC_downloader_MCP — 公共工程施工規範下載</h3>
+                <p>從「公共工程雲端服務網」自動化搜尋並下載施工綱要規範。</p>
+                <ul>
+                    <li>瀏覽所有章節清單（動態讀取，不硬編碼）</li>
+                    <li>關鍵字或 5 位碼規範編號搜尋</li>
+                    <li>批次下載 DOC / ODT / XLS / ODS / PDF</li>
+                </ul>
+            </div>
+
+            <div class="tool">
+                <h3>🔍 SearchProcurementTenders-crawler.Ver — 標案查詢爬蟲版</h3>
+                <p>直接介接政府電子採購網，自動抓取最新標案情報。</p>
+                <ul>
+                    <li>直接抓官網資料，無 API 延遲</li>
+                    <li>自動處理 Big5 / UTF-8 編碼，不亂碼</li>
+                    <li>自動計算「等標期」與「剩餘天數」，輸出 Markdown 表格</li>
+                </ul>
+                <div class="say">「幫我找關於『室內裝修』的標案。」「最近有哪些『新建工程』的標案快截止了？」</div>
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <div class="wrap">
+            <div class="eyebrow">§ Why Open Source · 為什麼開源</div>
+            <h2>為什麼我們要開源？</h2>
+            <p>我們相信，<strong>開源能讓整個產業變得更強</strong>。如果你覺得這些工具有幫助，歡迎：</p>
+            <div class="cta">
+                <span>⭐ 給專案按 Star</span>
+                <span>🍴 Fork 後修改使用</span>
+                <span>🔀 提交 PR 貢獻知識</span>
+                <span>💬 在 Issue 討論</span>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="wrap" style="display:flex; justify-content:space-between; width:100%; flex-wrap:wrap; gap:8px;">
+            <span>講者 · YAO ／ 穹境科技</span>
+            <span><span class="red">建築數位轉型 · 節能 × AI</span></span>
+        </div>
+    </footer>
 </body>
 </html>
