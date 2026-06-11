@@ -28,7 +28,8 @@
       "expo-router"
     ],
     "experiments": {
-      "typedRoutes": true
+      "typedRoutes": true,
+      "baseUrl": "/1107-Pull-request"
     }
   }
 }
