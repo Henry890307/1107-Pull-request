@@ -4,16 +4,52 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>建築 AI 知識基礎設施 · 一句話到一棟樓</title>
+
+    <!-- SEO -->
+    <meta name="description" content="為 AI 時代設計的建築產業知識基礎設施。雙語雙層知識庫，讓人類能瀏覽學習、讓 AI 能直接讀取並執行。涵蓋建築設計、法規、施工、公共工程等 9 大核心分類。">
+    <meta name="author" content="YAO ／ 穹境科技">
+    <meta name="theme-color" content="#c0392b">
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="一句話到一棟樓 · 建築 AI 知識基礎設施">
+    <meta property="og:description" content="From One Sentence to a Building — 建築師的 AI 超能力。雙語雙層知識庫，9 大核心分類，為 AI 時代設計的知識基礎設施。">
+    <meta property="og:locale" content="zh_TW">
+    <meta name="twitter:card" content="summary_large_image">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;800;900&family=Noto+Serif+TC:ital@1&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+    <!-- Favicon (inline SVG) -->
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%23c0392b'/%3E%3Ctext x='16' y='23' font-size='20' font-family='sans-serif' font-weight='800' fill='%23fff' text-anchor='middle'%3E樓%3C/text%3E%3C/svg%3E">
+
     <style>
         :root {
             --bg: #f4f1ea;
             --ink: #1c1a17;
             --muted: #6b6258;
             --accent: #c0392b;
+            --accent-dark: #9c2c20;
             --line: #d8d2c6;
             --card: #fbf9f4;
+            --shadow: 0 1px 2px rgba(28,26,23,.04), 0 8px 24px rgba(28,26,23,.06);
+        }
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --bg: #17150f;
+                --ink: #ece6da;
+                --muted: #9c9384;
+                --accent: #e05a4a;
+                --accent-dark: #c0392b;
+                --line: #322d24;
+                --card: #1f1c15;
+                --shadow: 0 1px 2px rgba(0,0,0,.3), 0 8px 24px rgba(0,0,0,.35);
+            }
         }
         * { box-sizing: border-box; margin: 0; padding: 0; }
+        html { scroll-behavior: smooth; scroll-padding-top: 72px; }
         body {
             background: var(--bg);
             color: var(--ink);
@@ -21,49 +57,74 @@
             line-height: 1.75;
             -webkit-font-smoothing: antialiased;
         }
-        .wrap { max-width: 920px; margin: 0 auto; padding: 0 24px; }
+        .wrap { max-width: 940px; margin: 0 auto; padding: 0 24px; }
+        a { color: var(--accent); text-decoration: none; }
+        a:hover { text-decoration: underline; }
+
+        /* Nav */
+        nav {
+            position: sticky; top: 0; z-index: 50;
+            background: color-mix(in srgb, var(--bg) 88%, transparent);
+            backdrop-filter: saturate(140%) blur(10px);
+            -webkit-backdrop-filter: saturate(140%) blur(10px);
+            border-bottom: 1px solid var(--line);
+        }
+        .nav-inner {
+            max-width: 940px; margin: 0 auto; padding: 12px 24px;
+            display: flex; align-items: center; gap: 22px;
+        }
+        .brand { font-weight: 800; font-size: 16px; white-space: nowrap; }
+        .brand .red { color: var(--accent); }
+        .nav-links { display: flex; gap: 20px; margin-left: auto; flex-wrap: wrap; }
+        .nav-links a {
+            color: var(--muted); font-size: 14px; font-weight: 500;
+            transition: color .15s; text-decoration: none;
+        }
+        .nav-links a:hover { color: var(--accent); }
+        @media (max-width: 680px) { .nav-links { display: none; } }
 
         /* Hero */
-        header {
-            border-bottom: 1px solid var(--line);
-            padding: 80px 0 56px;
-        }
+        header { border-bottom: 1px solid var(--line); padding: 76px 0 52px; }
         .kicker {
-            color: var(--accent);
-            font-weight: 700;
-            letter-spacing: .18em;
-            font-size: 13px;
-            text-transform: uppercase;
+            color: var(--accent); font-weight: 700; letter-spacing: .18em;
+            font-size: 13px; text-transform: uppercase;
+        }
+        .live-badge {
+            display: inline-block; margin-left: 10px; vertical-align: middle;
+            border: 1.5px solid var(--accent); color: var(--accent);
+            border-radius: 999px; padding: 2px 10px; font-size: 11px;
+            font-weight: 800; letter-spacing: .12em;
         }
         h1 {
-            font-size: clamp(40px, 8vw, 76px);
-            font-weight: 800;
-            line-height: 1.05;
-            margin: 18px 0 8px;
-            letter-spacing: -.01em;
+            font-size: clamp(40px, 8.5vw, 80px); font-weight: 900;
+            line-height: 1.04; margin: 18px 0 8px; letter-spacing: -.01em;
         }
         h1 .red { color: var(--accent); }
         .subtitle {
-            font-style: italic;
-            color: var(--muted);
-            font-size: clamp(18px, 3vw, 24px);
-            margin-bottom: 24px;
+            font-family: "Noto Serif TC", serif; font-style: italic;
+            color: var(--muted); font-size: clamp(18px, 3vw, 25px); margin-bottom: 24px;
         }
-        .lead {
-            font-size: 18px;
-            max-width: 640px;
-            color: var(--ink);
+        .lead { font-size: 18px; max-width: 660px; }
+
+        /* Stats row */
+        .stats {
+            display: flex; flex-wrap: wrap; gap: 8px 36px;
+            margin-top: 34px; padding-top: 26px; border-top: 1px solid var(--line);
+        }
+        .stat .big {
+            font-size: 30px; font-weight: 900; line-height: 1;
+            font-variant-numeric: tabular-nums;
+        }
+        .stat .lbl {
+            font-size: 11px; color: var(--muted); letter-spacing: .14em;
+            text-transform: uppercase; margin-top: 6px;
         }
 
         /* Sections */
         section { padding: 56px 0; border-bottom: 1px solid var(--line); }
         .eyebrow {
-            color: var(--accent);
-            font-weight: 700;
-            letter-spacing: .14em;
-            font-size: 12px;
-            text-transform: uppercase;
-            margin-bottom: 14px;
+            color: var(--accent); font-weight: 700; letter-spacing: .14em;
+            font-size: 12px; text-transform: uppercase; margin-bottom: 14px;
         }
         h2 { font-size: clamp(26px, 5vw, 36px); font-weight: 800; margin-bottom: 24px; }
         h3 { font-size: 20px; font-weight: 700; margin: 28px 0 8px; }
@@ -71,37 +132,45 @@
         .muted { color: var(--muted); }
 
         /* Category grid */
-        .grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-            gap: 16px;
-        }
+        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 16px; }
         .cat {
-            background: var(--card);
-            border: 1px solid var(--line);
-            border-radius: 10px;
-            padding: 18px 20px;
+            background: var(--card); border: 1px solid var(--line); border-radius: 12px;
+            padding: 18px 20px; transition: transform .18s, box-shadow .18s, border-color .18s;
         }
-        .cat .num {
-            color: var(--accent);
-            font-weight: 800;
-            font-size: 13px;
-            font-variant-numeric: tabular-nums;
-        }
+        .cat:hover { transform: translateY(-3px); box-shadow: var(--shadow); border-color: color-mix(in srgb, var(--accent) 35%, var(--line)); }
+        .cat .num { color: var(--accent); font-weight: 800; font-size: 13px; font-variant-numeric: tabular-nums; }
         .cat .name { font-weight: 700; font-size: 17px; margin: 4px 0; }
         .cat .desc { color: var(--muted); font-size: 14px; }
 
+        /* Timeline (震撼曲線) */
+        .timeline { position: relative; margin-top: 8px; }
+        .act {
+            display: grid; grid-template-columns: 64px 92px 1fr; gap: 16px;
+            padding: 20px 0; border-top: 1px solid var(--line); align-items: start;
+        }
+        .act:first-child { border-top: none; }
+        .act.star { background: linear-gradient(90deg, color-mix(in srgb, var(--accent) 7%, transparent), transparent); border-radius: 10px; padding-left: 14px; margin-left: -14px; }
+        .act .no { font-size: 30px; font-weight: 900; color: color-mix(in srgb, var(--ink) 22%, var(--bg)); line-height: 1; font-variant-numeric: tabular-nums; }
+        .act.star .no { color: var(--accent); }
+        .act .time { font-size: 13px; color: var(--muted); font-variant-numeric: tabular-nums; padding-top: 6px; letter-spacing: .04em; }
+        .act .title { font-weight: 800; font-size: 18px; }
+        .act .title .star-mark { color: var(--accent); }
+        .act .body { font-size: 14.5px; color: var(--muted); margin-top: 4px; }
+        .act .tag {
+            display: inline-block; margin-top: 8px; font-size: 13px; font-weight: 600;
+            border-left: 3px solid var(--accent); padding: 2px 0 2px 10px; color: var(--ink);
+        }
+        @media (max-width: 560px) {
+            .act { grid-template-columns: 44px 1fr; }
+            .act .time { grid-column: 2; padding-top: 0; }
+            .act .no { font-size: 22px; }
+        }
+
         /* Code block */
         pre {
-            background: #211f1b;
-            color: #e8e3d8;
-            padding: 22px 24px;
-            border-radius: 10px;
-            overflow-x: auto;
-            font-family: "SF Mono", "JetBrains Mono", Consolas, monospace;
-            font-size: 13.5px;
-            line-height: 1.7;
-            margin: 18px 0;
+            background: #211f1b; color: #e8e3d8; padding: 22px 24px; border-radius: 12px;
+            overflow-x: auto; font-family: "JetBrains Mono", "SF Mono", Consolas, monospace;
+            font-size: 13.5px; line-height: 1.7; margin: 18px 0; box-shadow: var(--shadow);
         }
         pre .c { color: #b58a5a; }
 
@@ -113,75 +182,81 @@
 
         /* Tools */
         .tool {
-            background: var(--card);
-            border: 1px solid var(--line);
-            border-left: 3px solid var(--accent);
-            border-radius: 8px;
-            padding: 22px 24px;
-            margin-bottom: 18px;
+            background: var(--card); border: 1px solid var(--line); border-left: 3px solid var(--accent);
+            border-radius: 10px; padding: 22px 24px; margin-bottom: 18px;
+            transition: transform .18s, box-shadow .18s;
         }
+        .tool:hover { transform: translateY(-2px); box-shadow: var(--shadow); }
         .tool h3 { margin-top: 0; }
         .tool ul { margin: 10px 0 10px 20px; }
         .tool li { margin-bottom: 4px; font-size: 15px; }
-        .tool .say {
-            background: #efe9dd;
-            border-radius: 6px;
-            padding: 10px 14px;
-            font-size: 14px;
-            color: var(--muted);
-            margin-top: 10px;
-        }
-        .note {
-            background: #fbeee9;
-            border: 1px solid #e7c4bb;
-            border-radius: 6px;
-            padding: 10px 14px;
-            font-size: 14px;
-            margin-top: 10px;
-        }
+        .tool .say { background: color-mix(in srgb, var(--accent) 8%, var(--bg)); border-radius: 8px; padding: 10px 14px; font-size: 14px; color: var(--muted); margin-top: 10px; }
+        .note { background: color-mix(in srgb, var(--accent) 10%, var(--bg)); border: 1px solid color-mix(in srgb, var(--accent) 30%, var(--line)); border-radius: 8px; padding: 10px 14px; font-size: 14px; margin-top: 10px; }
 
-        /* License + CTA */
-        .pills { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 12px; }
-        .pill {
-            background: var(--card);
-            border: 1px solid var(--line);
-            border-radius: 999px;
-            padding: 8px 16px;
-            font-size: 14px;
-        }
-        .cta { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 8px; }
-        .cta span {
-            background: var(--card);
-            border: 1px solid var(--line);
-            border-radius: 8px;
-            padding: 10px 16px;
-            font-size: 15px;
-        }
+        /* Pills + CTA */
+        .pills, .cta { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 12px; }
+        .pill, .cta span { background: var(--card); border: 1px solid var(--line); border-radius: 999px; padding: 8px 16px; font-size: 14px; }
+        .cta span { border-radius: 8px; }
 
-        footer {
-            padding: 40px 0 64px;
-            color: var(--muted);
-            font-size: 13px;
-            display: flex;
-            justify-content: space-between;
-            flex-wrap: wrap;
-            gap: 8px;
-        }
+        footer { padding: 40px 0 64px; color: var(--muted); font-size: 13px; }
+        footer .row { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 8px; }
         footer .red { color: var(--accent); }
+
+        /* Scroll reveal */
+        .reveal { opacity: 0; transform: translateY(16px); transition: opacity .6s ease, transform .6s ease; }
+        .reveal.in { opacity: 1; transform: none; }
+        @media (prefers-reduced-motion: reduce) {
+            html { scroll-behavior: auto; }
+            .reveal { opacity: 1; transform: none; transition: none; }
+            .cat:hover, .tool:hover { transform: none; }
+        }
+
+        /* Back to top */
+        #top {
+            position: fixed; right: 22px; bottom: 22px; z-index: 60;
+            width: 44px; height: 44px; border-radius: 50%;
+            background: var(--accent); color: #fff; border: none; cursor: pointer;
+            font-size: 20px; line-height: 44px; text-align: center;
+            box-shadow: var(--shadow); opacity: 0; pointer-events: none;
+            transition: opacity .25s, transform .25s; transform: translateY(8px);
+        }
+        #top.show { opacity: 1; pointer-events: auto; transform: none; }
+        #top:hover { background: var(--accent-dark); }
     </style>
 </head>
 <body>
+    <nav>
+        <div class="nav-inner">
+            <span class="brand">一句話<span class="red">到一棟樓</span></span>
+            <div class="nav-links">
+                <a href="#kb">知識庫</a>
+                <a href="#arch">雙語雙層</a>
+                <a href="#tiers">技能分級</a>
+                <a href="#agenda">震撼曲線</a>
+                <a href="#tools">開源工具</a>
+                <a href="#opensource">參與貢獻</a>
+            </div>
+        </div>
+    </nav>
+
     <header>
         <div class="wrap">
-            <div class="kicker">建築 AI 元年 · 現場實證 / A Live Keynote</div>
+            <div class="kicker">建築 AI 元年 · 現場實證 / A Live Keynote<span class="live-badge">LIVE</span></div>
             <h1>一句話<br><span class="red">到一棟樓</span></h1>
             <div class="subtitle">From One Sentence to a Building — 建築師的 AI 超能力</div>
             <p class="lead">為 AI 時代設計的建築產業知識基礎設施。不只是知識整理，而是讓人類能瀏覽學習、讓 AI 能直接讀取並執行的<strong>雙語雙層知識庫</strong>。</p>
+            <div class="stats">
+                <div class="stat"><div class="big">150′</div><div class="lbl">正課 Keynote</div></div>
+                <div class="stat"><div class="big">30′</div><div class="lbl">現場 Q&amp;A</div></div>
+                <div class="stat"><div class="big">100</div><div class="lbl">公會席次</div></div>
+                <div class="stat"><div class="big">8</div><div class="lbl">震撼幕次 Acts</div></div>
+                <div class="stat"><div class="big">LIVE</div><div class="lbl">全程實機演示</div></div>
+            </div>
         </div>
     </header>
 
-    <section>
-        <div class="wrap">
+    <section id="kb">
+        <div class="wrap reveal">
             <div class="eyebrow">§ The Knowledge Base · 知識涵蓋</div>
             <h2>這個知識庫涵蓋什麼？</h2>
             <p class="muted">整個知識庫分為 9 大核心分類：</p>
@@ -199,8 +274,8 @@
         </div>
     </section>
 
-    <section>
-        <div class="wrap">
+    <section id="arch">
+        <div class="wrap reveal">
             <div class="eyebrow">§ The Architecture · 雙語雙層</div>
             <h2>為什麼這個知識庫很特別？</h2>
             <p><strong>雙語雙層結構</strong>是這個專案最大的特色。每個知識模組採用「上層中文（人類入口）+ 下層英文（AI 技能）」的架構：</p>
@@ -214,8 +289,8 @@
         </div>
     </section>
 
-    <section>
-        <div class="wrap">
+    <section id="tiers">
+        <div class="wrap reveal">
             <div class="eyebrow">§ Skill Tiers · 技能分級</div>
             <h2>技能分級制度</h2>
             <p class="muted">我們設計了 A / B / C 三級分類：</p>
@@ -230,20 +305,49 @@
         </div>
     </section>
 
-    <section>
-        <div class="wrap">
-            <div class="eyebrow">§ License · 開放貢獻</div>
-            <h2>開放貢獻</h2>
-            <p>這個專案採用<strong>分層授權</strong>，歡迎任何人貢獻知識。只要你願意分享經驗，就歡迎加入。</p>
-            <div class="pills">
-                <span class="pill">📄 文字內容 · CC BY-SA 4.0</span>
-                <span class="pill">⚙️ 腳本程式碼 · Apache 2.0</span>
+    <section id="agenda">
+        <div class="wrap reveal">
+            <div class="eyebrow">§ The Shockwave · 震撼曲線</div>
+            <h2>150 分鐘，八幕現場實證</h2>
+            <div class="timeline">
+                <div class="act">
+                    <div class="no">01</div><div class="time">0–12′</div>
+                    <div><div class="title">無中生樓</div><div class="body">真實基地 → AI 標註法規（退縮／容積／高度）→ 生成渲染 → Seedance 2.0 動畫</div><div class="tag">12 分鐘，一棟會動、又合法的樓</div></div>
+                </div>
+                <div class="act">
+                    <div class="no">02</div><div class="time">12–20′</div>
+                    <div><div class="title">你的時間都死在哪</div><div class="body">建築師的時間黑洞：標案・會議記錄・工地日誌・圖檔命名・法規查詢</div></div>
+                </div>
+                <div class="act">
+                    <div class="no">03</div><div class="time">20–45′</div>
+                    <div><div class="title">文書超能力</div><div class="body">標案 PDF 秒摘要・會議錄音轉逐字與行動清單・照片語音生工地日誌・圖檔批次改名</div><div class="tag">原來 AI 不只生圖</div></div>
+                </div>
+                <div class="act star">
+                    <div class="no">04</div><div class="time">45–87′</div>
+                    <div><div class="title">視覺超能力 <span class="star-mark">★</span></div><div class="body">三種輸入全部變渲染：堆疊量體（保麗龍模型）／手繪草圖／CAD。風格變體・保結構換材質・全場掃碼生圖牆</div><div class="tag">我這台，一次出 20 張</div></div>
+                </div>
+                <div class="act">
+                    <div class="no">05</div><div class="time">87–105′</div>
+                    <div><div class="title">法規超能力</div><div class="body">建築法規 AI 即時問答：退縮・容積・防火區劃・開窗率・無障礙・停車。現場出題現場答</div><div class="tag">查法規，不用翻法條</div></div>
+                </div>
+                <div class="act star">
+                    <div class="no">06</div><div class="time">105–130′</div>
+                    <div><div class="title">我現場做給你看 <span class="star-mark">★</span></div><div class="body">把黃仁勳兩天前在台北 GTC 的建築 AI 全鏈，現場重跑：草圖／CAD → 建模 → 算圖 → 擬真 → 動畫</div><div class="tag">全球最強 AI 公司認證的路，我在台灣現場跑完</div></div>
+                </div>
+                <div class="act">
+                    <div class="no">07</div><div class="time">130–143′</div>
+                    <div><div class="title">走進那棟樓</div><div class="body">高斯潑濺 3DGS 空間漫遊 + 360 圖面，業主能走進去的空間</div><div class="tag">不只一張圖，是一個空間</div></div>
+                </div>
+                <div class="act">
+                    <div class="no">08</div><div class="time">143–150′</div>
+                    <div><div class="title">你的下一步</div><div class="body">課程階梯種草 + 掃碼進共學群，開課優先通知</div><div class="tag">今天看到的天花板，課程帶你摸到</div></div>
+                </div>
             </div>
         </div>
     </section>
 
-    <section>
-        <div class="wrap">
+    <section id="tools">
+        <div class="wrap reveal">
             <div class="eyebrow">§ Open Tools · 相關開源工具</div>
             <h2>相關開源工具</h2>
             <p class="muted">我們很常「幫客戶做工具」，但真正想做的是——讓產業共好。</p>
@@ -304,10 +408,16 @@
         </div>
     </section>
 
-    <section>
-        <div class="wrap">
-            <div class="eyebrow">§ Why Open Source · 為什麼開源</div>
-            <h2>為什麼我們要開源？</h2>
+    <section id="opensource">
+        <div class="wrap reveal">
+            <div class="eyebrow">§ License &amp; Contribute · 開放貢獻</div>
+            <h2>開放貢獻</h2>
+            <p>這個專案採用<strong>分層授權</strong>，歡迎任何人貢獻知識。只要你願意分享經驗，就歡迎加入。</p>
+            <div class="pills">
+                <span class="pill">📄 文字內容 · CC BY-SA 4.0</span>
+                <span class="pill">⚙️ 腳本程式碼 · Apache 2.0</span>
+            </div>
+            <h3>為什麼我們要開源？</h3>
             <p>我們相信，<strong>開源能讓整個產業變得更強</strong>。如果你覺得這些工具有幫助，歡迎：</p>
             <div class="cta">
                 <span>⭐ 給專案按 Star</span>
@@ -319,10 +429,27 @@
     </section>
 
     <footer>
-        <div class="wrap" style="display:flex; justify-content:space-between; width:100%; flex-wrap:wrap; gap:8px;">
+        <div class="wrap row">
             <span>講者 · YAO ／ 穹境科技</span>
             <span><span class="red">建築數位轉型 · 節能 × AI</span></span>
         </div>
     </footer>
+
+    <button id="top" aria-label="回到頂端" title="回到頂端">↑</button>
+
+    <script>
+        // Scroll reveal
+        const io = new IntersectionObserver((entries) => {
+            entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
+        }, { threshold: 0.12 });
+        document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+        // Back-to-top
+        const topBtn = document.getElementById('top');
+        topBtn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+        const onScroll = () => topBtn.classList.toggle('show', window.scrollY > 600);
+        window.addEventListener('scroll', onScroll, { passive: true });
+        onScroll();
+    </script>
 </body>
 </html>
